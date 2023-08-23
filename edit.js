@@ -2,10 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const addButton = document.getElementById("addBookmark");
     const exportButton = document.getElementById("exportButton");
     const importButton = document.getElementById("importButton");
+    const copyKeyButton = document.getElementById("copyKeyButton");
 
     addButton.addEventListener("click", addBookmark);
     exportButton.addEventListener("click", exportData);
     importButton.addEventListener("click", importData);
+    copyKeyButton.addEventListener("click", copyKeyToClipboard);
 
     // Load existing data from localStorage (if any)
     loadBookmarks();
@@ -17,7 +19,7 @@ function loadBookmarks() {
     const storedData = localStorage.getItem("bookmarksData");
     if (storedData) {
         bookmarksData = JSON.parse(storedData);
-        updateJsonOutput();
+        updateCompressedKey();
     }
 }
 
@@ -42,7 +44,7 @@ function addBookmark() {
         };
 
         bookmarksData.push(newBookmark);
-        updateJsonOutput();
+        updateCompressedKey();
         clearInputs();
         saveBookmarks(); // Save to localStorage
     } else {
@@ -50,10 +52,11 @@ function addBookmark() {
     }
 }
 
-function updateJsonOutput() {
-    const jsonOutput = document.getElementById("jsonOutput");
-    const jsonData = JSON.stringify(bookmarksData, null, 2);
-    jsonOutput.value = jsonData;
+function updateCompressedKey() {
+    const compressedKeyInput = document.getElementById("compressedKey");
+    const jsonData = JSON.stringify(bookmarksData);
+    const compressedKey = btoa(jsonData);
+    compressedKeyInput.value = compressedKey;
 }
 
 function clearInputs() {
@@ -67,9 +70,7 @@ function clearInputs() {
 }
 
 function exportData() {
-    const jsonOutput = document.getElementById("jsonOutput");
-    const compressedKey = btoa(jsonOutput.value);
-    alert("Exported Key: " + compressedKey);
+    updateCompressedKey();
 }
 
 function importData() {
@@ -78,11 +79,17 @@ function importData() {
         try {
             const jsonData = atob(keyInput);
             bookmarksData = JSON.parse(jsonData);
-            updateJsonOutput();
+            updateCompressedKey();
             saveBookmarks(); // Save imported data to localStorage
         } catch (error) {
             console.error("Error importing data:", error);
             alert("Invalid key. Please make sure the key is correct.");
         }
     }
+}
+
+function copyKeyToClipboard() {
+    const compressedKeyInput = document.getElementById("compressedKey");
+    compressedKeyInput.select();
+    document.execCommand("copy");
 }
