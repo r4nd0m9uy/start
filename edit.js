@@ -102,4 +102,8 @@ function copyKeyToClipboard() {
 function toggleMenu() {
     const menuOptions = document.getElementById("menuOptions");
     menuOptions.classList.toggle("show");
+
+    const addBookmarkSection = document.querySelector(".add-bookmark");
+    addBookmarkSection.classList.toggle("hidden");
+
 }
