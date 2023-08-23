@@ -51,4 +51,86 @@ body {
     display: block;
 }
 
-/* ... (other CSS code) ... */
+.bookmark {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.bookmark:hover {
+    background-color: #f9f9f9;
+}
+
+.bookmark img {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
+
+.bookmark .title {
+    flex-grow: 1;
+}
+
+.warning-badge {
+    margin-left: 10px;
+    padding: 2px 6px;
+    background-color: #ff4d4d;
+    color: white;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.add-bookmark {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-bookmark h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.add-bookmark input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.add-bookmark button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.add-bookmark button:hover {
+    background-color: #0056b3;
+}
+
+.add-bookmark textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    resize: vertical;
+}
+
+.add-bookmark #copyKeyButton {
+    display: block;
+    margin-top: 10px;
+}
