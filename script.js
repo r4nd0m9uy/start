@@ -14,15 +14,16 @@ function displayClock() {
 function displayBookmarks() {
     const bookmarksContainer = document.querySelector(".bookmarks");
 
-    // Retrieve bookmarks data from localStorage
-    const storedData = localStorage.getItem("bookmarksData");
-    if (storedData) {
-        const bookmarks = JSON.parse(storedData);
-        bookmarks.forEach(bookmark => {
-            const bookmarkElement = createBookmarkElement(bookmark);
-            bookmarksContainer.appendChild(bookmarkElement);
-        });
-    }
+    // Fetch bookmarks data from data.json (Assuming you have a JSON array of bookmarks)
+    fetch("data.json")
+        .then(response => response.json())
+        .then(bookmarks => {
+            bookmarks.forEach(bookmark => {
+                const bookmarkElement = createBookmarkElement(bookmark);
+                bookmarksContainer.appendChild(bookmarkElement);
+            });
+        })
+        .catch(error => console.error("Error fetching bookmarks:", error));
 }
 
 function createBookmarkElement(bookmark) {
