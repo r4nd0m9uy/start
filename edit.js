@@ -1,12 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const addButton = document.getElementById("addBookmark");
-    const exportButton = document.getElementById("exportButton");
-    const importButton = document.getElementById("importButton");
-    const copyKeyButton = document.getElementById("copyKeyButton");
+    const toggleMenuButton = document.getElementById("toggleMenu");
+    toggleMenuButton.addEventListener("click", toggleMenu);
 
+    const addButton = document.getElementById("addBookmarkButton");
     addButton.addEventListener("click", addBookmark);
+
+    const exportButton = document.getElementById("exportButton");
     exportButton.addEventListener("click", exportData);
+
+    const importButton = document.getElementById("importButton");
     importButton.addEventListener("click", importData);
+
+    const copyKeyButton = document.getElementById("copyKeyButton");
     copyKeyButton.addEventListener("click", copyKeyToClipboard);
 
     // Load existing data from localStorage (if any)
@@ -92,4 +97,9 @@ function copyKeyToClipboard() {
     const compressedKeyInput = document.getElementById("compressedKey");
     compressedKeyInput.select();
     document.execCommand("copy");
+}
+
+function toggleMenu() {
+    const menuOptions = document.getElementById("menuOptions");
+    menuOptions.classList.toggle("show");
 }
