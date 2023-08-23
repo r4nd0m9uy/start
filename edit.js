@@ -1,12 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
     const addButton = document.getElementById("addBookmark");
-    const copyButton = document.getElementById("copyButton");
+    const exportButton = document.getElementById("exportButton");
+    const importButton = document.getElementById("importButton");
 
     addButton.addEventListener("click", addBookmark);
-    copyButton.addEventListener("click", copyJSON);
+    exportButton.addEventListener("click", exportData);
+    importButton.addEventListener("click", importData);
+
+    // Load existing data from localStorage (if any)
+    loadBookmarks();
 });
 
 let bookmarksData = [];
+
+function loadBookmarks() {
+    const storedData = localStorage.getItem("bookmarksData");
+    if (storedData) {
+        bookmarksData = JSON.parse(storedData);
+        updateJsonOutput();
+    }
+}
+
+function saveBookmarks() {
+    localStorage.setItem("bookmarksData", JSON.stringify(bookmarksData));
+}
 
 function addBookmark() {
     const titleInput = document.getElementById("title");
@@ -27,6 +44,7 @@ function addBookmark() {
         bookmarksData.push(newBookmark);
         updateJsonOutput();
         clearInputs();
+        saveBookmarks(); // Save to localStorage
     } else {
         console.log("Please fill in all fields.");
     }
@@ -48,8 +66,23 @@ function clearInputs() {
     iconInput.value = "";
 }
 
-function copyJSON() {
+function exportData() {
     const jsonOutput = document.getElementById("jsonOutput");
-    jsonOutput.select();
-    document.execCommand("copy");
+    const compressedKey = btoa(jsonOutput.value);
+    alert("Exported Key: " + compressedKey);
+}
+
+function importData() {
+    const keyInput = prompt("Paste the exported key here:");
+    if (keyInput) {
+        try {
+            const jsonData = atob(keyInput);
+            bookmarksData = JSON.parse(jsonData);
+            updateJsonOutput();
+            saveBookmarks(); // Save imported data to localStorage
+        } catch (error) {
+            console.error("Error importing data:", error);
+            alert("Invalid key. Please make sure the key is correct.");
+        }
+    }
 }
