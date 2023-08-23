@@ -2,10 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggleMenuButton = document.getElementById("toggleMenu");
     toggleMenuButton.addEventListener("click", toggleMenu);
 
-    const addButton = document.getElementById("addBookmarkButton");
-    addButton.addEventListener("click", addBookmark);
+    const showAddBookmarkButton = document.getElementById("showAddBookmark");
+    const showExportImportButton = document.getElementById("showExportImport");
+    
+    showAddBookmarkButton.addEventListener("click", showAddBookmark);
+    showExportImportButton.addEventListener("click", showExportImport);
 
+    const addButton = document.getElementById("addBookmarkButton");
     const exportButton = document.getElementById("exportButton");
+    addButton.addEventListener("click", addBookmark);
     exportButton.addEventListener("click", exportData);
 
     const importButton = document.getElementById("importButton");
@@ -93,17 +98,21 @@ function importData() {
     }
 }
 
-function copyKeyToClipboard() {
-    const compressedKeyInput = document.getElementById("compressedKey");
-    compressedKeyInput.select();
-    document.execCommand("copy");
-}
-
 function toggleMenu() {
     const menuOptions = document.getElementById("menuOptions");
     menuOptions.classList.toggle("show");
+}
 
+function showAddBookmark() {
     const addBookmarkSection = document.querySelector(".add-bookmark");
-    addBookmarkSection.classList.toggle("hidden");
+    const exportImportSection = document.querySelector(".export-import");
+    addBookmarkSection.classList.toggle("hidden", false);
+    exportImportSection.classList.toggle("hidden", true);
+}
 
+function showExportImport() {
+    const addBookmarkSection = document.querySelector(".add-bookmark");
+    const exportImportSection = document.querySelector(".export-import");
+    addBookmarkSection.classList.toggle("hidden", true);
+    exportImportSection.classList.toggle("hidden", false);
 }
